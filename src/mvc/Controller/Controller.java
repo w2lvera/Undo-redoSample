@@ -9,8 +9,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
+import mvc.model.Fill;
 import mvc.model.Model;
 import mvc.model.MyShape;
+import mvc.model.NoFill;
 import mvc.view.MyFrame;
 import mvc.view.MyPanel;
 
@@ -23,10 +25,12 @@ public class Controller {
     MyFrame frame;
     MyPanel panel;
     Point2D [] pd;
-
+    MyShape shape;
     public Controller() {
         model = new Model();
-        model.setMyShape(new MyShape(new Rectangle2D.Double()));
+        shape = new MyShape(new Rectangle2D.Double());
+        shape.setFb(new Fill());
+        model.setMyShape(shape);
         panel = new MyPanel();
         panel.setController(this);
         model.addObserver(panel);
