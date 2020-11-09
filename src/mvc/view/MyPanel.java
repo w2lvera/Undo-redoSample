@@ -10,6 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JPanel;
 import mvc.Controller.Controller;
 
@@ -19,7 +21,7 @@ import mvc.Controller.Controller;
  *
  * @author Wera
  */
-public class MyPanel extends JPanel{
+public class MyPanel extends JPanel implements Observer{
     Controller controller;
     
     public MyPanel(){
@@ -34,8 +36,6 @@ public class MyPanel extends JPanel{
             @Override
             public void mouseDragged(MouseEvent arg0) {
                 controller.getPointTwo(arg0.getPoint());
-                repaint();
-               
             }
         });
     }
@@ -50,6 +50,11 @@ public class MyPanel extends JPanel{
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        repaint();
     }
    
 }

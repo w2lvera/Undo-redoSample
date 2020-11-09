@@ -29,6 +29,7 @@ public class Controller {
         model.setMyShape(new MyShape(new Rectangle2D.Double()));
         panel = new MyPanel();
         panel.setController(this);
+        model.addObserver(panel);
         frame = new MyFrame();
         frame.setPanel(panel);
         pd = new Point2D[2];
