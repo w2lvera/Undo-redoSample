@@ -29,7 +29,7 @@ public class Controller {
     public Controller() {
         model = new Model();
         shape = new MyShape(new Rectangle2D.Double());
-        shape.setFb(new Fill());
+        shape.setFb(new NoFill());
         model.setMyShape(shape);
         panel = new MyPanel();
         panel.setController(this);
