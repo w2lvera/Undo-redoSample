@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mvc.model;
+package com.vera.mvc.model;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;

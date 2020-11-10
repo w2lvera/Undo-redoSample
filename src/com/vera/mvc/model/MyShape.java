@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mvc.model;
+package com.vera.mvc.model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -25,30 +25,26 @@ public class MyShape {
         this.shape = shape;
         color = Color.BLUE;
         fb = new NoFill();
-        fb.setColor(color);
-        fb.serShape(shape);
+       
     }
 
     public MyShape() {
         color = Color.BLUE;
         shape = new Rectangle2D.Double();
         fb = new Fill();
-        fb.setColor(color);
-        fb.serShape(shape);
+        
     }
 
     public MyShape(Color color, RectangularShape shape, FillBehavior fb) {
         this.color = color;
         this.shape = shape;
         this.fb = fb;
-        this.fb.serShape(shape);
-        this.fb.setColor(color);
+        
     }
 
     public void setFb(FillBehavior fb) {
         this.fb = fb;
-        fb.serShape(shape);
-        fb.setColor(color);
+        
     }
 
     public void setShape(RectangularShape shape) {
@@ -63,9 +59,48 @@ public class MyShape {
         fb.draw(g);
        
     }
+
+    public MyShape.FillBehavior getFb() {
+        return fb;
+    }
+    
     //////////////////////////////////////////////////////////
+   public interface FillBehavior {
+        void draw(Graphics2D g);
+    }
+   public class Fill implements FillBehavior {
+
+    public Fill() {
+        
+    }
+  
+    @Override
+    public void draw(Graphics2D g) {
+        Paint paint = g.getPaint();
+        g.setPaint(color);
+        g.fill(shape);
+        g.setPaint(paint);
+    }
+
+}
+public class NoFill implements FillBehavior {
+
+    public NoFill() {
+    }
+
+    @Override
+    public void draw(Graphics2D g) {
+        Paint paint = g.getPaint();
+        g.setPaint(color);
+        g.draw(shape);
+        g.setPaint(paint);
+    }
+
    
+}
 
    
     
 }
+
+

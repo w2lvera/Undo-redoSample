@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mvc.view;
+package com.vera.mvc.view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,7 +13,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
-import mvc.Controller.Controller;
+import com.vera.mvc.Controller.Controller;
 
 
 

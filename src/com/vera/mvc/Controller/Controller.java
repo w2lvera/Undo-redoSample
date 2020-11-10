@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mvc.Controller;
+package com.vera.mvc.Controller;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.RectangularShape;
-import mvc.model.Fill;
-import mvc.model.Model;
-import mvc.model.MyShape;
-import mvc.model.NoFill;
-import mvc.view.MyFrame;
-import mvc.view.MyPanel;
+import com.vera.mvc.model.Model;
+import com.vera.mvc.model.MyShape;
+import com.vera.mvc.view.MyFrame;
+import com.vera.mvc.view.MyPanel;
 
 /**
  *
@@ -29,7 +26,8 @@ public class Controller {
     public Controller() {
         model = new Model();
         shape = new MyShape(new Rectangle2D.Double());
-        shape.setFb(new NoFill());
+        shape.setFb(shape.new NoFill());
+     //   MyShape.FillBehavior fb = shape.getFb();
         model.setMyShape(shape);
         panel = new MyPanel();
         panel.setController(this);
