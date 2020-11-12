@@ -5,7 +5,13 @@
  */
 package com.vera.mvc.view;
 
+import com.vera.mvc.Controller.State;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -13,8 +19,34 @@ import javax.swing.JFrame;
  */
 public class MyFrame extends JFrame{
     MyPanel panel;
-    public MyFrame(){
-   
+    State state;
+    public MyFrame(State state){
+       this.state = state;
+       JMenuBar bar;
+       bar = new JMenuBar();
+       this.setJMenuBar(bar);
+       JMenu menu;
+       menu = new JMenu("test");
+       bar.add(menu);
+       JMenuItem jMenuItem;
+       jMenuItem = new JMenuItem("fill");
+       JMenuItem jMenuItem1;
+       jMenuItem1 = new JMenuItem("NoFill");
+        menu.add(jMenuItem);
+        menu.add(jMenuItem1);
+        jMenuItem.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               state.setFb(state.getShape().new Fill());
+           }
+       });
+        jMenuItem1.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               state.setFb(state.getShape().new NoFill());
+           }
+       });
+   /////////////////////////////////////////////////////////////////
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setSize(500, 500);
     setVisible(true);

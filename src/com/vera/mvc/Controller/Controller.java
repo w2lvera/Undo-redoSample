@@ -12,6 +12,7 @@ import com.vera.mvc.model.Model;
 import com.vera.mvc.model.MyShape;
 import com.vera.mvc.view.MyFrame;
 import com.vera.mvc.view.MyPanel;
+import java.awt.Color;
 
 /**
  *
@@ -22,17 +23,20 @@ public class Controller {
     MyFrame frame;
     MyPanel panel;
     Point2D [] pd;
+    State state;
     MyShape shape;
     public Controller() {
         model = new Model();
-        shape = new MyShape(new Rectangle2D.Double());
-        shape.setFb(shape.new NoFill());
+        state = new State(model);
+        state.setShape(new MyShape(new Rectangle2D.Double()));
+        state.setColor(Color.yellow);
+        // shape.setFb(shape.new NoFill());
      //   MyShape.FillBehavior fb = shape.getFb();
-        model.setSampleShape(shape);
+       // model.setSampleShape(shape);
         panel = new MyPanel();
         panel.setController(this);
         model.addObserver(panel);
-        frame = new MyFrame();
+        frame = new MyFrame(state);
         frame.setPanel(panel);
         pd = new Point2D[2];
     }

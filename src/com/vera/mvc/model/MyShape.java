@@ -5,6 +5,7 @@
  */
 package com.vera.mvc.model;
 
+import com.vera.mvc.model.MyShape.Fill;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -31,7 +32,7 @@ public class MyShape {
     public MyShape() {
         color = Color.BLUE;
         shape = new Rectangle2D.Double();
-        fb = new Fill();
+       // fb = new Fill();
     }
 
     public MyShape(Color color, RectangularShape shape, FillBehavior fb) {
@@ -66,12 +67,21 @@ public class MyShape {
 
     public MyShape clone() {
         MyShape s = new MyShape();
-        s.setColor(color);
+       
+        
         RectangularShape s1 = (RectangularShape) shape.clone();
+       // s.setFb(fb);
+        if(fb instanceof NoFill )
+        s.setFb(s.new NoFill());
+        else
+            s.setFb(s.new Fill()); 
+        s.setColor(color);
         s.setShape(s1);
-        s.setFb(s.fb.clone());
+       // 
         return s;
     }
+
+   
 
     /////////////////////inner classes/////////////////////////////////////
     
