@@ -26,7 +26,6 @@ public class MyShape {
         this.shape = shape;
         color = Color.BLUE;
         fb = new NoFill();
-
     }
 
     public MyShape() {
@@ -74,11 +73,10 @@ public class MyShape {
         return s;
     }
 
-    //////////////////////////////////////////////////////////
+    /////////////////////inner classes/////////////////////////////////////
+    
     public interface FillBehavior {
-
         void draw(Graphics2D g);
-
         FillBehavior clone();
     }
 
