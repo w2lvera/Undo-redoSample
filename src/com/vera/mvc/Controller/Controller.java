@@ -28,7 +28,7 @@ public class Controller {
         shape = new MyShape(new Rectangle2D.Double());
         shape.setFb(shape.new NoFill());
      //   MyShape.FillBehavior fb = shape.getFb();
-        model.setMyShape(shape);
+        model.setSampleShape(shape);
         panel = new MyPanel();
         panel.setController(this);
         model.addObserver(panel);
@@ -38,6 +38,7 @@ public class Controller {
     }
     public void getPointOne(Point2D p){
         pd[0] = p;
+        model.inintCurrentShape();
     }
     public void getPointTwo(Point2D p){
         pd[1] = p;
