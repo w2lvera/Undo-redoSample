@@ -66,7 +66,6 @@ public class MyShape {
 
     public MyShape clone() {
         MyShape s = new MyShape();       
-        
         RectangularShape s1 = (RectangularShape) shape.clone();      
         s.setColor(color);
         s.setShape(s1);
@@ -76,7 +75,7 @@ public class MyShape {
 
    
 
-    /////////////////////inner classes/////////////////////////////////////
+    /////////////////////inner enum/////////////////////////////////////
     
     public enum FillBehavior {
         FILL {

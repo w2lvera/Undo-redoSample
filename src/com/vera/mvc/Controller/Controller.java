@@ -30,9 +30,6 @@ public class Controller {
         state = new State(model);
         state.setShape(new MyShape(new Rectangle2D.Double()));
         state.setColor(Color.yellow);
-        // shape.setFb(shape.new NoFill());
-     //   MyShape.FillBehavior fb = shape.getFb();
-       // model.setSampleShape(shape);
         panel = new MyPanel();
         panel.setController(this);
         model.addObserver(panel);
