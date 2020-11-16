@@ -6,6 +6,7 @@
 package com.vera.mvc.view;
 
 import com.vera.mvc.Controller.State;
+import com.vera.mvc.model.MyShape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -37,13 +38,13 @@ public class MyFrame extends JFrame{
         jMenuItem.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               state.setFb(state.getShape().new Fill());
+               state.setFb(MyShape.FillBehavior.FILL);
            }
        });
         jMenuItem1.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               state.setFb(state.getShape().new NoFill());
+               state.setFb(MyShape.FillBehavior.NO_FILL);
            }
        });
    /////////////////////////////////////////////////////////////////

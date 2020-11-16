@@ -40,10 +40,7 @@ public class State {
 
     public void setFb(MyShape.FillBehavior fb) {
         this.fb = fb;
-        if(fb instanceof MyShape.NoFill)
-            shape.setFb(shape.new NoFill());
-        else 
-            shape.setFb(shape.new Fill());
+        shape.setFb(fb);
         model.setSampleShape(shape);
     }
 

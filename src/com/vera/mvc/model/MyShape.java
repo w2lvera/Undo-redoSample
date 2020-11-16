@@ -5,7 +5,6 @@
  */
 package com.vera.mvc.model;
 
-import com.vera.mvc.model.MyShape.Fill;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -26,13 +25,13 @@ public class MyShape {
     public MyShape(RectangularShape shape) {
         this.shape = shape;
         color = Color.BLUE;
-        fb = new NoFill();
+        fb = FillBehavior.NO_FILL;
     }
 
     public MyShape() {
         color = Color.BLUE;
         shape = new Rectangle2D.Double();
-       // fb = new Fill();
+        fb =  FillBehavior.NO_FILL;;
     }
 
     public MyShape(Color color, RectangularShape shape, FillBehavior fb) {
@@ -54,7 +53,7 @@ public class MyShape {
     }
 
     void draw(Graphics2D g) {
-        fb.draw(g);
+        fb.draw(g,color,shape);
     }
 
     public void setColor(Color color) {
@@ -66,18 +65,12 @@ public class MyShape {
     }
 
     public MyShape clone() {
-        MyShape s = new MyShape();
-       
+        MyShape s = new MyShape();       
         
-        RectangularShape s1 = (RectangularShape) shape.clone();
-       // s.setFb(fb);
-        if(fb instanceof NoFill )
-        s.setFb(s.new NoFill());
-        else
-            s.setFb(s.new Fill()); 
+        RectangularShape s1 = (RectangularShape) shape.clone();      
         s.setColor(color);
         s.setShape(s1);
-       // 
+        s.fb = this.fb; 
         return s;
     }
 
@@ -85,43 +78,28 @@ public class MyShape {
 
     /////////////////////inner classes/////////////////////////////////////
     
-    public interface FillBehavior {
-        void draw(Graphics2D g);
-        FillBehavior clone();
+    public enum FillBehavior {
+        FILL {
+            @Override
+            public void draw(Graphics2D g,  Color c, RectangularShape sh) {
+                  Paint paint = g.getPaint();
+                  g.setPaint(c);
+                  g.fill(sh);
+                  g.setPaint(paint);
+            }
+        } ,
+        NO_FILL {
+            @Override
+            public void draw(Graphics2D g, Color c, RectangularShape sh) {
+                 Paint paint = g.getPaint();
+                 g.setPaint(c);
+                 g.draw(sh);
+                 g.setPaint(paint);
+            }
+        };
+        public abstract void  draw(Graphics2D g, Color c, RectangularShape sh);        
+        
     }
 
-    public class Fill implements FillBehavior {
-
-        public Fill() { }
-
-        @Override
-        public void draw(Graphics2D g) {
-            Paint paint = g.getPaint();
-            g.setPaint(color);
-            g.fill(shape);
-            g.setPaint(paint);
-        }
-
-        public FillBehavior clone() {
-            return new Fill();
-        }
-
-    }
-
-    public class NoFill implements FillBehavior {
-
-        public NoFill() { }
-
-        @Override
-        public void draw(Graphics2D g) {
-            Paint paint = g.getPaint();
-            g.setPaint(color);
-            g.draw(shape);
-            g.setPaint(paint);
-        }
-
-        public FillBehavior clone() {
-            return new NoFill();
-        }
-    }
+    
 }
