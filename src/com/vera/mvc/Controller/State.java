@@ -6,6 +6,7 @@
 package com.vera.mvc.Controller;
 
 
+import com.vera.mvc.model.Activity;
 import com.vera.mvc.model.Model;
 import com.vera.mvc.model.MyShape;
 import java.awt.Color;
@@ -23,9 +24,19 @@ public class State {
    Color color;
    MyShape.FillBehavior fb;
    RectangularShape rectangularShape;
+   Activity activity;
+
+    public void setActivity(Activity.ActivityBehavior activity) {
+        this.activity.setAb(activity);
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
 
     public State(Model model) {
         this.model = model;
+        activity = new Activity(model);
     }
 
     public void setShape(MyShape shape) {

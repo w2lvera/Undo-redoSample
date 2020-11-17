@@ -63,7 +63,9 @@ public class MyShape {
     public MyShape.FillBehavior getFb() {
         return fb;
     }
-
+    public boolean contains(Point2D p){
+        return shape.contains(p);
+    }
     public MyShape clone() {
         MyShape s = new MyShape();       
         RectangularShape s1 = (RectangularShape) shape.clone();      
@@ -71,6 +73,10 @@ public class MyShape {
         s.setShape(s1);
         s.fb = this.fb; 
         return s;
+    }
+
+    public RectangularShape getShape() {
+        return shape;
     }
 
    

@@ -6,6 +6,7 @@
 package com.vera.mvc.view;
 
 import com.vera.mvc.Controller.State;
+import com.vera.mvc.model.Activity;
 import com.vera.mvc.model.MyShape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,6 +50,27 @@ public class MyFrame extends JFrame {
                 state.setFb(MyShape.FillBehavior.NO_FILL);
             }
         });
+        JMenu menu1 = new JMenu("activity");
+        bar.add(menu1);
+        JMenuItem jMenuItem2;
+        jMenuItem2 = new JMenuItem("Draw");
+        JMenuItem jMenuItem3;
+        jMenuItem3 = new JMenuItem("Move");
+        menu1.add(jMenuItem2);
+        menu1.add(jMenuItem3);
+        jMenuItem2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                state.setActivity(Activity.ActivityBehavior.DRAW);
+            }
+        });
+        jMenuItem3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                state.setActivity(Activity.ActivityBehavior.MOVE);
+            }
+        });
+        
         /////////////////////////////////////////////////////////////////
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(500, 500);

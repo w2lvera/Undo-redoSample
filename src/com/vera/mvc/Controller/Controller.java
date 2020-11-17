@@ -38,12 +38,11 @@ public class Controller {
         pd = new Point2D[2];
     }
     public void getPointOne(Point2D p){
-        pd[0] = p;
-        model.inintCurrentShape();
+        state.getActivity().getPointOne(p);
+        
     }
     public void getPointTwo(Point2D p){
-        pd[1] = p;
-        model.changeShape(pd);
+        state.getActivity().getPointTwo(p);
     }
 
     public void draw(Graphics2D g2) {

@@ -6,7 +6,11 @@
 package com.vera.mvc.model;
 
 import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.geom.Point2D;
+import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -16,7 +20,7 @@ import java.util.Observable;
  */
 public class Model extends Observable {
 
-    MyShape currentShape;
+    MyShape currentShape = null;
     MyShape sampleShape;
     ArrayList<MyShape> list;
 
@@ -54,6 +58,34 @@ public class Model extends Observable {
                 s.draw(g);
             }
         }
+    }
+
+    void findShape(Point2D p1) {
+        if (list != null) {
+            for (MyShape s : list) {
+               if( s.contains(p1)){
+                   currentShape = s;
+                   return;
+               };
+            }
+        }
+    }
+
+    void moveShape(Point2D[] p) {
+       double deltaX = p[0].getX() - p[1].getX();
+        double deltaY = p[0].getY() - p[1].getY();
+        if (currentShape != null) {
+            RectangularShape s = currentShape.getShape();
+            double xMin = s.getMinX() - deltaX;
+            double yMin = s.getMinY() - deltaY;
+            double xMax = s.getMaxX() - deltaX;
+            double yMax = s.getMaxY() - deltaY;
+            s.setFrameFromDiagonal(xMin, yMin, xMax, yMax);
+            p[0] = p[1];
+            setChanged();
+            notifyObservers();
+        } 
+       
     }
 
 }
