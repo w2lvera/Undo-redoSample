@@ -22,6 +22,7 @@ public class SwitchUndo extends AbstractAction implements Observer{
     public SwitchUndo(String name, Icon icon, UndoMachine machine) {
         super(name, icon);
         putValue("machine", machine);
+        
     }
 
     @Override

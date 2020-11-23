@@ -61,12 +61,14 @@ public class MyFrame extends JFrame {
                 new SwitchActivity(state, new Draw())));
         menuItems.add(new SwitchState("двигать", new ImageIcon("move.gif"),
                 new SwitchActivity(state, new Move())));
-        menuItems.add(new SwitchUndo("undo",null,undoMachine));
-        menuItems.add(new SwitchRedo("redo",null,undoMachine));
+        menuItems.add(new SwitchUndo("undo",new ImageIcon("undo.gif"),undoMachine));
+        menuItems.add(new SwitchRedo("redo",new ImageIcon("redo.gif"),undoMachine));
         menuItems.add(new SwitchState("выбор цвета", new ImageIcon("colors.gif"),
                 new SwitchColor(state)));
         undoMachine.addObserver((SwitchUndo)menuItems.get(menuItems.size()-3));
         undoMachine.addObserver((SwitchRedo)menuItems.get(menuItems.size()-2));
+        undoMachine.notifyMenu();
+        
         ArrayList<JMenu> menus = new ArrayList<>();
         menus.add(new JMenu("фигура"));
         menus.add(new JMenu("заливка"));

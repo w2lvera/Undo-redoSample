@@ -155,7 +155,7 @@ public class UndoMachine extends Observable {
         return undoIterator;
     }
 
-    void notifyMenu() {
+    public void notifyMenu() {
         setChanged();
         notifyObservers(stateUndo);
     }
