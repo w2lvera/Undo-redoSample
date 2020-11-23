@@ -14,6 +14,7 @@ import com.vera.mvc.Controller.State;
 import com.vera.mvc.model.Activity;
 import com.vera.mvc.model.Activity.ActivityBehavior;
 import com.vera.mvc.model.MyShape;
+import java.awt.BorderLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,10 +22,12 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JToolBar;
 
 /**
  *
@@ -41,19 +44,19 @@ public class MyFrame extends JFrame {
         bar = new JMenuBar();
         this.setJMenuBar(bar);
         ArrayList<Action> menuItems = new ArrayList<>();
-        menuItems.add(new SwitchState("прямоугольник", null,
+        menuItems.add(new SwitchState("прямоугольник",new ImageIcon("rectangle.gif"),
                 new SwitchShape(state, new Rectangle2D.Double())));
-        menuItems.add(new SwitchState("овал", null,
+        menuItems.add(new SwitchState("овал", new ImageIcon("ellipse.gif"),
                 new SwitchShape(state, new Ellipse2D.Double())));
-        menuItems.add(new SwitchState("незалитый", null,
+        menuItems.add(new SwitchState("незалитый", new ImageIcon("nofill.gif"),
                 new SwitchFill(state, MyShape.FillBehavior.NO_FILL)));
-        menuItems.add(new SwitchState("залитый", null,
+        menuItems.add(new SwitchState("залитый", new ImageIcon("fill.gif"),
                 new SwitchFill(state, MyShape.FillBehavior.FILL)));
-        menuItems.add(new SwitchState("рисовать", null,
+        menuItems.add(new SwitchState("рисовать", new ImageIcon("draw.gif"),
                 new SwitchActivity(state, Activity.ActivityBehavior.DRAW)));
-        menuItems.add(new SwitchState("двигать", null,
+        menuItems.add(new SwitchState("двигать", new ImageIcon("move.gif"),
                 new SwitchActivity(state, Activity.ActivityBehavior.MOVE)));
-        menuItems.add(new SwitchState("выбор цвета", null,
+        menuItems.add(new SwitchState("выбор цвета", new ImageIcon("colors.gif"),
                 new SwitchColor(state)));
 
         ArrayList<JMenu> menus = new ArrayList<>();
@@ -74,11 +77,20 @@ public class MyFrame extends JFrame {
                 m.add(menuItems.get(i));
             }
         }
+        JToolBar toolBar = new JToolBar();
+        for (Action x : menuItems) {
+            toolBar.add(x);
+        }
+
+        add(toolBar, BorderLayout.NORTH);
+
+
+        
 
 //        
         /////////////////////////////////////////////////////////////////
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 500);
+        setSize(700, 700);
         setVisible(true);
     }
 

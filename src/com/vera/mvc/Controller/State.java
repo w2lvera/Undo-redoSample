@@ -37,6 +37,7 @@ public class State {
     public State(Model model) {
         this.model = model;
         activity = new Activity(model);
+        activity.setAb(Activity.ActivityBehavior.DRAW);
     }
 
     public void setShape(MyShape shape) {

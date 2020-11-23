@@ -14,6 +14,7 @@ import java.awt.geom.Point2D;
 public class Activity {
     Model model;
     Point2D[] p;
+    MyShape myShape;
     ActivityBehavior ab;
 
     public Activity(Model model) {
@@ -37,13 +38,28 @@ public class Activity {
             @Override
             public void getPointOne(Point2D p1, Point2D[] p, Model model) {
                 p[0] = p1;
-                model.inintCurrentShape();
+                myShape =model.inintCurrentShape();
             }
 
             @Override
             public void getPointTwo(Point2D p1, Point2D[] p, Model model) {
                 p[1] = p1;
                 model.changeShape(p);
+            }
+
+            @Override
+            public void execute(Model model,MyShape s) {
+                model.setActiveShape(s);
+            }
+
+            @Override
+            public void unexecute(Model model,MyShape s) {
+                model.ctrlZ_Shape();
+            }
+
+            @Override
+            public Activity clone() {
+                
             }
 
         },
@@ -59,10 +75,31 @@ public class Activity {
                 p[1] = p1;
                 model.moveShape(p);
             }
+
+            @Override
+            public void execute(Model model,MyShape s) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void unexecute(Model model,MyShape s) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public Activity clone() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
         };
 
         public abstract void getPointOne(Point2D p1, Point2D[] p, Model model);
 
         public abstract void getPointTwo(Point2D p1, Point2D[] p, Model model);
+        public abstract void execute(Model model,MyShape s);
+        public abstract void unexecute(Model model,MyShape s);
+
+        public abstract Activity clone();
+
+
     }
 }

@@ -37,9 +37,10 @@ public class Model extends Observable {
         list = new ArrayList<>();
     }
 
-    public void inintCurrentShape() {
+    public MyShape inintCurrentShape() {
         currentShape = sampleShape.clone();
         list.add(currentShape);
+        return currentShape;
     }
 
     public void setMyShape(MyShape myShape) {
@@ -63,16 +64,16 @@ public class Model extends Observable {
     void findShape(Point2D p1) {
         if (list != null) {
             for (MyShape s : list) {
-               if( s.contains(p1)){
-                   currentShape = s;
-                   return;
-               };
+                if (s.contains(p1)) {
+                    currentShape = s;
+                    return;
+                };
             }
         }
     }
 
     void moveShape(Point2D[] p) {
-       double deltaX = p[0].getX() - p[1].getX();
+        double deltaX = p[0].getX() - p[1].getX();
         double deltaY = p[0].getY() - p[1].getY();
         if (currentShape != null) {
             RectangularShape s = currentShape.getShape();
@@ -84,8 +85,23 @@ public class Model extends Observable {
             p[0] = p[1];
             setChanged();
             notifyObservers();
-        } 
-       
+        }
+
+    }
+
+    ///////////////////////undo/////////////////////////
+    public MyShape ctrlZ_Shape() {
+        MyShape s = list.remove(list.size() - 1);
+        setChanged();
+        notifyObservers();
+        return s;
+    }
+
+    public void setActiveShape(MyShape activeShape) {
+        this.currentShape = activeShape;//.clone();
+        list.add(currentShape);
+        setChanged();
+        notifyObservers();
     }
 
 }
