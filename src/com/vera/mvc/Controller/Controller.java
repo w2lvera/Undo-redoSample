@@ -10,6 +10,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import com.vera.mvc.model.Model;
 import com.vera.mvc.model.MyShape;
+import com.vera.mvc.model.UndoMachine;
+import com.vera.mvc.model.activity.Activity;
 import com.vera.mvc.view.MyFrame;
 import com.vera.mvc.view.MyPanel;
 import java.awt.Color;
@@ -20,6 +22,7 @@ import java.awt.Color;
  */
 public class Controller {
     Model model;
+    UndoMachine undoMachine;
     MyFrame frame;
     MyPanel panel;
     Point2D [] pd;
@@ -27,18 +30,21 @@ public class Controller {
     MyShape shape;
     public Controller() {
         model = new Model();
+        undoMachine = new UndoMachine();
         state = new State(model);
         state.setShape(new MyShape(new Rectangle2D.Double()));
         state.setColor(Color.yellow);
         panel = new MyPanel();
         panel.setController(this);
         model.addObserver(panel);
-        frame = new MyFrame(state);
+        frame = new MyFrame(state,undoMachine);
         frame.setPanel(panel);
         pd = new Point2D[2];
     }
     public void getPointOne(Point2D p){
-        state.getActivity().getPointOne(p);
+        Activity activity = state.getActivity();
+        activity.getPointOne(p);
+        undoMachine.add(activity.clone());
         
     }
     public void getPointTwo(Point2D p){

@@ -61,18 +61,19 @@ public class Model extends Observable {
         }
     }
 
-    void findShape(Point2D p1) {
+    public MyShape findShape(Point2D p1) {
         if (list != null) {
             for (MyShape s : list) {
                 if (s.contains(p1)) {
                     currentShape = s;
-                    return;
+                    return currentShape;
                 };
             }
         }
+        return null;
     }
 
-    void moveShape(Point2D[] p) {
+    public void moveShape(Point2D[] p) {
         double deltaX = p[0].getX() - p[1].getX();
         double deltaY = p[0].getY() - p[1].getY();
         if (currentShape != null) {
@@ -86,7 +87,6 @@ public class Model extends Observable {
             setChanged();
             notifyObservers();
         }
-
     }
 
     ///////////////////////undo/////////////////////////
@@ -98,8 +98,15 @@ public class Model extends Observable {
     }
 
     public void setActiveShape(MyShape activeShape) {
-        this.currentShape = activeShape;//.clone();
+        this.currentShape = activeShape;
         list.add(currentShape);
+        setChanged();
+        notifyObservers();
+    }
+
+    public void reseverMove(MyShape shapeNew, Point2D[] oldP) {
+        shapeNew.setFrame(oldP);
+        currentShape = shapeNew;
         setChanged();
         notifyObservers();
     }

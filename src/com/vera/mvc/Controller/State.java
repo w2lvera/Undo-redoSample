@@ -6,9 +6,11 @@
 package com.vera.mvc.Controller;
 
 
-import com.vera.mvc.model.Activity;
+
 import com.vera.mvc.model.Model;
 import com.vera.mvc.model.MyShape;
+import com.vera.mvc.model.activity.Activity;
+import com.vera.mvc.model.activity.Draw;
 import java.awt.Color;
 import java.awt.geom.RectangularShape;
 
@@ -26,8 +28,9 @@ public class State {
    RectangularShape rectangularShape;
    Activity activity;
 
-    public void setActivity(Activity.ActivityBehavior activity) {
-        this.activity.setAb(activity);
+    public void setActivity(Activity activity) {
+       this.activity = activity;
+       this.activity.setModel(model);
     }
 
     public Activity getActivity() {
@@ -36,8 +39,7 @@ public class State {
 
     public State(Model model) {
         this.model = model;
-        activity = new Activity(model);
-        activity.setAb(Activity.ActivityBehavior.DRAW);
+        activity = new Draw(model);
     }
 
     public void setShape(MyShape shape) {

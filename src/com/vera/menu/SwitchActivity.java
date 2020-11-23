@@ -6,7 +6,9 @@
 package com.vera.menu;
 
 import com.vera.mvc.Controller.State;
-import com.vera.mvc.model.Activity;
+import com.vera.mvc.model.activity.Activity;
+
+
 
 /**
  *
@@ -14,9 +16,9 @@ import com.vera.mvc.model.Activity;
  */
 public class SwitchActivity implements Command{
    State state;
-   Activity.ActivityBehavior activity;
+   Activity activity;
 
-    public SwitchActivity(State state, Activity.ActivityBehavior activity) {
+    public SwitchActivity(State state, Activity activity) {
         this.state = state;
         this.activity = activity;
     }

@@ -8,12 +8,15 @@ package com.vera.mvc.view;
 import com.vera.menu.SwitchActivity;
 import com.vera.menu.SwitchColor;
 import com.vera.menu.SwitchFill;
+import com.vera.menu.SwitchRedo;
 import com.vera.menu.SwitchShape;
 import com.vera.menu.SwitchState;
+import com.vera.menu.SwitchUndo;
 import com.vera.mvc.Controller.State;
-import com.vera.mvc.model.Activity;
-import com.vera.mvc.model.Activity.ActivityBehavior;
 import com.vera.mvc.model.MyShape;
+import com.vera.mvc.model.UndoMachine;
+import com.vera.mvc.model.activity.Draw;
+import com.vera.mvc.model.activity.Move;
 import java.awt.BorderLayout;
 
 import java.awt.event.ActionEvent;
@@ -37,9 +40,11 @@ public class MyFrame extends JFrame {
 
     MyPanel panel;
     State state;
+    UndoMachine undoMachine;
 
-    public MyFrame(State state) {
+    public MyFrame(State state, UndoMachine machine) {
         this.state = state;
+        this.undoMachine = machine;
         JMenuBar bar;
         bar = new JMenuBar();
         this.setJMenuBar(bar);
@@ -53,16 +58,20 @@ public class MyFrame extends JFrame {
         menuItems.add(new SwitchState("залитый", new ImageIcon("fill.gif"),
                 new SwitchFill(state, MyShape.FillBehavior.FILL)));
         menuItems.add(new SwitchState("рисовать", new ImageIcon("draw.gif"),
-                new SwitchActivity(state, Activity.ActivityBehavior.DRAW)));
+                new SwitchActivity(state, new Draw())));
         menuItems.add(new SwitchState("двигать", new ImageIcon("move.gif"),
-                new SwitchActivity(state, Activity.ActivityBehavior.MOVE)));
+                new SwitchActivity(state, new Move())));
+        menuItems.add(new SwitchUndo("undo",null,undoMachine));
+        menuItems.add(new SwitchRedo("redo",null,undoMachine));
         menuItems.add(new SwitchState("выбор цвета", new ImageIcon("colors.gif"),
                 new SwitchColor(state)));
-
+        undoMachine.addObserver((SwitchUndo)menuItems.get(menuItems.size()-3));
+        undoMachine.addObserver((SwitchRedo)menuItems.get(menuItems.size()-2));
         ArrayList<JMenu> menus = new ArrayList<>();
         menus.add(new JMenu("фигура"));
         menus.add(new JMenu("заливка"));
         menus.add(new JMenu("действие"));
+        menus.add(new JMenu("undo/redo"));
         menus.add(new JMenu("цвет"));
         int i = 0;
         int k = menuItems.size()-2;
