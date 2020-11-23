@@ -5,7 +5,7 @@
  */
 package com.vera.menu;
 
-import com.vera.mvc.model.StateUndo;
+
 import com.vera.mvc.model.UndoMachine;
 import java.awt.event.ActionEvent;
 import java.util.Observable;
@@ -32,7 +32,7 @@ public class SwitchRedo extends AbstractAction implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        StateUndo stateUndo = (StateUndo) arg;
+        UndoMachine.StateUndo stateUndo = (UndoMachine.StateUndo) arg;
         this.setEnabled(stateUndo.redo);
     }
     

@@ -14,7 +14,17 @@ import java.util.Observable;
  * @author Wera
  */
 public class UndoMachine extends Observable {
+    public enum StateUndo {
 
+    EUndoERedo(true, true), DUndoDRedo(false, false), EUndoDRedo(true, false), DUndoERedo(false, true);
+    public boolean undo;
+    public boolean redo;
+
+    StateUndo(boolean u, boolean r) {
+        undo = u;
+        redo = r;
+    }
+}
     private class StateDUndoDRedo extends Undouble {
 
         @Override
