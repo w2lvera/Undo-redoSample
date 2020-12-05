@@ -13,18 +13,15 @@ import javax.swing.Icon;
  *
  * @author Wera
  */
-public class SwitchState extends AbstractAction{
+public class SwitchState extends AbstractAction {
 
-    public SwitchState(String name, Icon icon,Command com) {
+    public SwitchState(String name, Icon icon, Command com) {
         super(name, icon);
-        putValue("Command",com);
+        putValue("Command", com);
     }
-    
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        Command action = (Command)getValue("Command");
+        Command action = (Command) getValue("Command");
         action.execute();
     }
-    
 }

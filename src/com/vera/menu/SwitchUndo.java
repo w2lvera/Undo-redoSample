@@ -34,8 +34,8 @@ public class SwitchUndo extends AbstractAction implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        UndoMachine.StateUndo stateUndo = (UndoMachine.StateUndo) arg;
-        this.setEnabled(stateUndo.undo);
+        UndoMachine.UndoRedoButtonState buttonState = (UndoMachine.UndoRedoButtonState) arg;
+        this.setEnabled(buttonState.undo);
     }
     
 }

@@ -14,19 +14,23 @@ import java.util.Observable;
  * @author Wera
  */
 public class UndoMachine extends Observable {
-    public enum StateUndo {
+    public enum UndoRedoButtonState {
 
     EUndoERedo(true, true), DUndoDRedo(false, false), EUndoDRedo(true, false), DUndoERedo(false, true);
     public boolean undo;
     public boolean redo;
 
-    StateUndo(boolean u, boolean r) {
+    UndoRedoButtonState(boolean u, boolean r) {
         undo = u;
         redo = r;
     }
 }
     private class StateDUndoDRedo extends Undouble {
 
+        public StateDUndoDRedo() {
+            super(UndoRedoButtonState.DUndoDRedo);
+        }
+        
         @Override
         public void undo() {
         }
@@ -46,12 +50,20 @@ public class UndoMachine extends Observable {
 
     private class StateDUndoERedo extends Undouble {
 
+        public StateDUndoERedo() {
+            super(UndoRedoButtonState.DUndoERedo);
+        }
+
         @Override
         public void undo() {
         }
     }
 
     private class StateEUndoDRedo extends Undouble {
+
+        public StateEUndoDRedo() {
+            super(UndoRedoButtonState.EUndoDRedo);
+        }
 
         @Override
         public void redo() {
@@ -64,19 +76,34 @@ public class UndoMachine extends Observable {
 
     private class StateEUndoERedo extends Undouble {
 
+        public StateEUndoERedo() {
+            super(UndoRedoButtonState.EUndoERedo);
+        }
+
         @Override
         void goToEUndoERedo() {
         }
     }
 
     private class Undouble {
+        
+        UndoRedoButtonState buttonState;
 
+        public Undouble(UndoRedoButtonState buttonState) {
+            this.buttonState = buttonState;
+        }
+
+        public UndoRedoButtonState getButtonState() {
+            return buttonState;
+        }
+       
+        
         void undo() {
             activityList.get(undoIterator).unexecute();
             undoIterator--;
             if (undoIterator == -1) {
                 state = stateDUndoERedo;
-                stateUndo = StateUndo.DUndoERedo;
+                //stateUndo = StateUndo.DUndoERedo;
                 notifyMenu();
             } else {
                 goToEUndoERedo();
@@ -88,7 +115,7 @@ public class UndoMachine extends Observable {
             activityList.get(undoIterator).execute();
             if (undoIterator == activityList.size() - 1) {
                 state = stateEUndoDRedo;
-                stateUndo = StateUndo.EUndoDRedo;
+                //stateUndo = StateUndo.EUndoDRedo;
                 notifyMenu();
             } else {
                 goToEUndoERedo();
@@ -99,14 +126,14 @@ public class UndoMachine extends Observable {
             deleteHistory();
             activityList.add(action);
             undoIterator++;
-            stateUndo = StateUndo.EUndoDRedo;
+           // stateUndo = StateUndo.EUndoDRedo;
             state = stateEUndoDRedo;
             notifyMenu();
         }
 
         void goToEUndoERedo() {
             state = stateEUndoERedo;
-            stateUndo = StateUndo.EUndoERedo;
+            //stateUndo = StateUndo.EUndoERedo;
             notifyMenu();
         }
 
@@ -119,7 +146,8 @@ public class UndoMachine extends Observable {
         }
     }
     ArrayList<Activity> activityList;
-    StateUndo stateUndo;
+    
+    //StateUndo stateUndo;
     Undouble stateDUndoDRedo;
     Undouble stateEUndoERedo;
     Undouble stateDUndoERedo;
@@ -130,7 +158,7 @@ public class UndoMachine extends Observable {
     public UndoMachine() {
 
         activityList = new ArrayList<Activity>();
-        this.stateUndo = StateUndo.DUndoDRedo;
+       //this.stateUndo = StateUndo.DUndoDRedo;
         stateDUndoDRedo = new StateDUndoDRedo();
         stateEUndoERedo = new StateEUndoERedo();
         stateDUndoERedo = new StateDUndoERedo();
@@ -157,6 +185,6 @@ public class UndoMachine extends Observable {
 
     public void notifyMenu() {
         setChanged();
-        notifyObservers(stateUndo);
+        notifyObservers(state.getButtonState());
     }
 }

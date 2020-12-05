@@ -45,6 +45,7 @@ public class MyFrame extends JFrame {
     public MyFrame(State state, UndoMachine machine) {
         this.state = state;
         this.undoMachine = machine;
+       
         JMenuBar bar;
         bar = new JMenuBar();
         this.setJMenuBar(bar);
