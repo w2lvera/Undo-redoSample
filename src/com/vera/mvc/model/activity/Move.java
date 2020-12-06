@@ -61,7 +61,7 @@ public class Move implements Activity{
         model.reseverMove(shapeNew, oldP);
     }
 
-    @Override
+    @Override 
     public Activity clone() {
        Move d = new Move(model);
         d.shapeNew = shapeNew;
