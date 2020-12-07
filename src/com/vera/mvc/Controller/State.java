@@ -67,6 +67,10 @@ public class State {
     public MyShape getShape() {
         return shape;
     }
+
+    public Model getModel() {
+        return model;
+    }
     
     
 }

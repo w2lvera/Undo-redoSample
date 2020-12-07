@@ -5,6 +5,8 @@
  */
 package com.vera.mvc.view;
 
+import com.vera.menu.OpenFile;
+import com.vera.menu.SaveFile;
 import com.vera.menu.SwitchActivity;
 import com.vera.menu.SwitchColor;
 import com.vera.menu.SwitchFill;
@@ -50,6 +52,10 @@ public class MyFrame extends JFrame {
         bar = new JMenuBar();
         this.setJMenuBar(bar);
         ArrayList<Action> menuItems = new ArrayList<>();
+        menuItems.add(new SwitchState("открыть файл",new ImageIcon("rectangle.gif"),
+                new OpenFile(state)));
+        menuItems.add(new SwitchState("создать файл",new ImageIcon("rectangle.gif"),
+                new SaveFile(state)));
         menuItems.add(new SwitchState("прямоугольник",new ImageIcon("rectangle.gif"),
                 new SwitchShape(state, new Rectangle2D.Double())));
         menuItems.add(new SwitchState("овал", new ImageIcon("ellipse.gif"),
@@ -71,11 +77,12 @@ public class MyFrame extends JFrame {
         undoMachine.notifyMenu();
         
         ArrayList<JMenu> menus = new ArrayList<>();
-        menus.add(new JMenu("фигура"));
-        menus.add(new JMenu("заливка"));
-        menus.add(new JMenu("действие"));
-        menus.add(new JMenu("undo/redo"));
-        menus.add(new JMenu("цвет"));
+        menus.add(new JMenu("Файл"));
+        menus.add(new JMenu("Фигура"));
+        menus.add(new JMenu("Заливка"));
+        menus.add(new JMenu("Действие"));
+        menus.add(new JMenu("Undo/redo"));
+        menus.add(new JMenu("Цвет"));
         int i = 0;
         int k = menuItems.size()-2;
         for (JMenu m : menus) {

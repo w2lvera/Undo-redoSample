@@ -11,12 +11,13 @@ import java.awt.Paint;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
+import java.io.Serializable;
 
 /**
  *
  * @author Wera
  */
-public class MyShape {
+public class MyShape implements Serializable{
 
     Color color;
     RectangularShape shape;
@@ -83,7 +84,7 @@ public class MyShape {
 
     /////////////////////inner enum/////////////////////////////////////
     
-    public enum FillBehavior {
+    public enum FillBehavior implements Serializable{
         FILL {
             @Override
             public void draw(Graphics2D g,  Color c, RectangularShape sh) {
